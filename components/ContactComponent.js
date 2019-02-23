@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View } from 'react-native';
-import { Card, Divider } from 'react-native-elements';
+import { Text, ScrollView} from 'react-native';
+import { Card } from 'react-native-elements';
 
 class Contact extends Component {
     static navigationOptions = {
