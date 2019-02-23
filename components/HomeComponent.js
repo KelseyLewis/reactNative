@@ -41,6 +41,7 @@ static navigationOptions = {
 
 render() {
     return(
+        //Required to scroll
         <ScrollView>
             <RenderItem item={this.state.dishes.filter((dish) => dish.featured)[0]} />
             <RenderItem item={this.state.promotions.filter((promo) => promo.featured)[0]} />
