@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add redux-logger@3.0.6
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add react-redux@5.0.7 --save-dev
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/gangstaguelda/Desktop/Google Drive/Nucamp/4-React Native/confusion/node_modules/@babel/core/node_modules/debug/CHANGELOG.md'
+  Error: EACCES: permission denied, unlink '/Users/gangstaguelda/Desktop/Google Drive/Nucamp/4-React Native/confusion/node_modules/@babel/core/node_modules/ms/index.js'
 
 npm manifest: 
   {
