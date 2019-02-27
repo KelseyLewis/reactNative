@@ -17,7 +17,6 @@ const mapStateToProps = state => {
     }
   }
 
-
 function RenderItem(props) {
     const item = props.item;
 
@@ -29,7 +28,7 @@ function RenderItem(props) {
     else if (props.errMess) {
         return(
             <View> 
-                <Text>{props.erreMess}</Text>
+                <Text>{props.errMess}</Text>
             </View>
         );
     }

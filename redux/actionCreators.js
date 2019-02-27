@@ -63,6 +63,11 @@ export const dishesFailed = (errmess) => ({
     payload: errmess
 });
 
+export const addDishes = (dishes) => ({
+    type: ActionTypes.ADD_DISHES,
+    payload: dishes
+});
+
 
 export const fetchPromos = () => (dispatch) => {
     
