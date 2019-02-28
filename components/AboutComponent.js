@@ -32,46 +32,15 @@ class About extends Component {
 
     render() {
         const renderLeader = ({item, index}) => {
-            if (props.isLoading) {
-                return(
-                        <Loading />
-                );
-            }
-            else if (props.errMess) {
-                return(
-                    <View> 
-                        <Text>{props.errMess}</Text>
-                    </View>
-                );
-            }
-            else {        
-                if (item != null) {
-                    return(
-                        <Card
-                            featuredTitle={item.name}
-                            featuredSubtitle={item.designation}
-                            image={{uri: baseUrl + item.image}}>
-                            <Text
-                                style={{margin: 10}}>
-                                {item.description}</Text>
-                        </Card>
-                    );
-                }
-                else {
-                    return(<View></View>);
-                }
-            }
+            return (
+                <ListItem
+                    key={index}
+                    title={item.name}
+                    subtitle={item.description}
+                    leftAvatar={{source: {uri: baseUrl + item.image}}}
+                />
+            );
         }
-    
-        // return (
-        //     <ListItem
-        //         key={index}
-        //         title={item.name}
-        //         subtitle={item.description}
-        //         leftAvatar={{source: {uri: baseUrl + item.image}}}
-        //     />
-        // );
-        // }
 
         if (this.props.leaders.isLoading) {
             return(
