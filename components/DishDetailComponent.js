@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList, Modal, StyleSheet } from 'react-native';
-import { Card, Icon, Rating, Input, Button } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
+import { Card, Icon, Rating, Button, Input } from 'react-native-elements';
+//import { DISHES } from '../shared/dishes';
+//import { COMMENTS } from '../shared/comments';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
@@ -89,10 +89,11 @@ class DishDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dishes: DISHES,
-            comments: COMMENTS,
             favorites: [],
-            showModal: false
+            showModal: false,
+            rating: 3,
+            author: '',
+            text: ''
         };
     }
 
@@ -109,6 +110,17 @@ class DishDetail extends Component {
         this.setState({showModal: !this.state.showModal})
     }
 
+    handleComment() {
+        this.toggleModal();
+        //this.props.postComment(
+            // this.props.dishId,
+        console.log('Handle Submit activated!', this.state.rating, this.state.author, this.state.text);
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+
     render() {
         const dishId = this.props.navigation.getParam('dishId','');
         return(
@@ -123,35 +135,43 @@ class DishDetail extends Component {
                 <Modal animationType = {"slide"} transparent = {false}
                     visible = {this.state.showModal}>
                     <View style={styles.formRow}>
-                        <Rating showRating fractions={1} startingValue={3.0} />
+                        <Rating 
+                            showRating 
+                            fractions={0} 
+                            startingValue={3.0}
+                            onFinishRating={(rating) => this.setState({rating: rating})}
+                         />
                     </View>
                     <View style={styles.formRow}>
                         <Input
                             placeholder=' Author'
                             leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            onChangeText={(author) => this.setState({author: author})}
                         />
                     </View>
                     <View style={styles.formRow}>
                         <Input
                             placeholder=' Comment'
                             leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
+                            onChangeText={(text) => this.setState({text: text})}
                         />
                     </View>
                     <View style={styles.button}>
                         {/* Submit Button */}
                         <Button
-                            //onPress={() => {this.postComment(); this.toggleModal(); this.resetForm();}}
+                            onPress={() => this.handleComment()}
                             raised
                             title="Submit"
-                            //backgroundColor="#512DA8"
+                            buttonStyle={{backgroundColor: '#512DA8'}}
+                            style={{marginBottom: 20}}
                         />
                         {/* Cancel Button */}
                         <Button
                             //closes modal and resets the form
-                            //onPress = {() =>{this.toggleModal(); this.resetForm();}}
+                            onPress = {() =>{this.toggleModal()}}
                             raised
                             title="Cancel"
-                            //backgroundColor="#D3D3D3" 
+                            buttonStyle={{backgroundColor: "#D3D3D3"}}
                         />
                     </View>
                 </Modal>
@@ -168,7 +188,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1,
       flexDirection: 'row',
-      margin: 20
+      margin: 10
     },
     formLabel: {
         fontSize: 18,
@@ -195,7 +215,7 @@ const styles = StyleSheet.create({
      },
      button: {
          flex: 1,
-         flexDirection: 'column'
+         flexDirection: 'column',
      }
 });
 
