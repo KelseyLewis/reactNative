@@ -5,7 +5,7 @@ import { Card, Icon, Rating, Button, Input } from 'react-native-elements';
 //import { COMMENTS } from '../shared/comments';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/ActionCreators';
+import { postFavorite, postComment, addComment } from '../redux/ActionCreators';
 
 
 const mapStateToProps = state => {
@@ -17,7 +17,9 @@ const mapStateToProps = state => {
   }
 
 const mapDispatchToProps = dispatch => ({
-    postFavorite: (dishId) => dispatch(postFavorite(dishId))
+    postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+    addComment: (comment) => dispatch(addComment(comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 })
 
 function RenderDish(props) {
@@ -110,11 +112,14 @@ class DishDetail extends Component {
         this.setState({showModal: !this.state.showModal})
     }
 
-    handleComment() {
+    handleComment(dishId) {
         this.toggleModal();
-        //this.props.postComment(
-            // this.props.dishId,
-        console.log('Handle Submit activated!', this.state.rating, this.state.author, this.state.text);
+        this.props.postComment(
+            dishId,
+            this.state.rating, 
+            this.state.author, 
+            this.state.comment
+        );
     }
 
     handleChange(event) {
@@ -153,13 +158,13 @@ class DishDetail extends Component {
                         <Input
                             placeholder=' Comment'
                             leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
-                            onChangeText={(text) => this.setState({text: text})}
+                            onChangeText={(comment) => this.setState({comment: comment})}
                         />
                     </View>
                     <View style={styles.button}>
                         {/* Submit Button */}
                         <Button
-                            onPress={() => this.handleComment()}
+                            onPress={() => this.handleComment(dishId)}
                             raised
                             title="Submit"
                             buttonStyle={{backgroundColor: '#512DA8'}}
