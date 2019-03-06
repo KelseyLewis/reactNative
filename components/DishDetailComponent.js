@@ -24,6 +24,8 @@ const mapDispatchToProps = dispatch => ({
 function RenderDish(props) {
     const dish = props.dish;
 
+    handleViewRef = ref => this.view = ref;
+
     const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
         if ( dx < -200 )
             return true;
@@ -35,6 +37,9 @@ function RenderDish(props) {
         onStartShouldSetPanResponder: (e, gestureState) => {
             return true;
         },
+        //called when pan responder recognizes that it has been granted permission to do something
+        //adds visual feedback to the user
+        onPanResponderGrant: () => {this.view.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));},
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
             if (recognizeDrag(gestureState))
