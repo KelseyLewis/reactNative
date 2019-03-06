@@ -1,1 +1,1 @@
-json-server --watch db.json -p 3001 -d 2000 -H 192.168.1.23
+json-server --watch db.json -p 3001 -d 2000 -H 172.19.131.115
