@@ -27,7 +27,14 @@ function RenderDish(props) {
     handleViewRef = ref => this.view = ref;
 
     const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
-        if ( dx < -200 )
+        if ( dx < -150 )
+            return true;
+        else
+            return false;
+    };
+
+    const recognizeComment = ({moveX, moveY, dx, dy }) => {
+        if ( dx > 150 )
             return true;
         else
             return false;
@@ -46,16 +53,20 @@ function RenderDish(props) {
         },
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
-            if (recognizeDrag(gestureState))
+            if (recognizeDrag(gestureState)) {
                 Alert.alert(
                     'Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
                     [
                     {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                    {text: 'OK', onPress: () => {props.favorite ? console.log('Already favorite') : props.onPress()}},
+                    {text: 'OK', onPress: () => {props.favorite ? console.log('Already favorite') : props.markFavorite()}},
                     ],
                     { cancelable: false }
                 );
+            } else if(recognizeComment(gestureState)) {
+                props.toggleModal();
+                console.log('recognizeComment entered')
+            }
 
             return true;
         }
